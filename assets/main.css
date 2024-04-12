@@ -1,0 +1,61 @@
+
+:root {
+  --dark-bg-color: rgb(23, 23, 23); /* dark:bg-neutral-900 */
+  --primary-color: #d97706; 
+  --secondary-color: #4f4f4f;
+  --btn-bg-color: var(--primary-color); 
+  --btn-text-color: #fff;
+
+  --font-size-sm: clamp(0.8rem, 0.17vw + 0.76rem, 0.89rem);
+  --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
+  --font-size-md: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
+  --font-size-lg: clamp(1.56rem, 1vw + 1.31rem, 2.11rem);
+  --font-size-xl: clamp(1rem, 1.56vw + 1rem, 2.5rem);
+  --font-size-xxl: clamp(1.5rem, 1vw, 3rem);
+  --font-size-xxxl: clamp(3.05rem, 3.54vw + 2.17rem, 5rem);
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  /* overflow-x: hidden; */
+}
+
+html.dark {
+  /* background: #121212; */
+  background: var(--dark-bg-color);
+  color-scheme: dark;
+}
+
+h1 {
+  font-size: var(--font-size-xxxl) ;
+}
+
+h2 {
+  font-size: var(--font-size-xxl);
+  font-weight: bold;
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+  font-weight: bold;
+}
+
+h4 {
+  font-size: var(--font-size-lg);
+}
+
+h5 {
+  font-size: var(--font-size-md);
+}
+
+p {
+  font-size: var(--font-size-base);
+}
+
+
+
+
