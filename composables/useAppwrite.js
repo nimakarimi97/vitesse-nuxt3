@@ -8,7 +8,7 @@ export function useAppwrite() {
   const client = new Client()
 
   client
-    .setEndpoint('https://cloud.appwrite.io/v1')
+    .setEndpoint(config.public.APPWRITE_ENDPOINT)
     .setProject(config.public.APPWRITE_PROJECT_ID)
 
   accountRef.value = new Account(client)

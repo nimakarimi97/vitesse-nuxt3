@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     // Keys within public, will be also exposed to the client-side
     public: {
       apiBase: 'http://nimakarimi.com', // can be overridden by NUXT_PUBLIC_API_BASE environment variable
+      APPWRITE_ENDPOINT: process.env.APPWRITE_ENDPOINT,
       APPWRITE_PROJECT_ID: process.env.APPWRITE_PROJECT_ID as string,
       DATABASE_ID: process.env.DATABASE_ID as string,
       TASK_COLLECTION_ID: process.env.TASK_COLLECTION_ID as string,

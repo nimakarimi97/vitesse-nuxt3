@@ -1,58 +1,18 @@
 <script setup>
-import { Account, Client, Databases, ID } from 'appwrite'
+import { useTasksStore } from '~/store/tasks'
+
+const tasksStore = useTasksStore()
 
 definePageMeta({
   layout: 'home',
 })
 
-const client = new Client()
-const config = useRuntimeConfig()
-
-client
-  .setEndpoint('https://cloud.appwrite.io/v1')
-  .setProject('6617e64315be5c6cf848')
-
-const db = new Databases(client)
-const tasks = ref({})
 const body = ref('')
 const error = ref('')
 
-async function fetchTasks() {
-  tasks.value = await db.listDocuments(config.public.DATABASE_ID, config.public.TASK_COLLECTION_ID)
-}
-
 onMounted(async () => {
-  fetchTasks()
+  await tasksStore.fetchTasks()
 })
-
-async function addTasks() {
-  if (!body.value) {
-    error.value = 'Task cannot be empty'
-
-    setTimeout(() => {
-      error.value = ''
-    }, 5000)
-  }
-
-  await db.createDocument(config.public.DATABASE_ID, config.public.TASK_COLLECTION_ID, 'unique()', {
-    body: body.value,
-  })
-
-  body.value = ''
-  fetchTasks()
-}
-
-async function deleteTask(id) {
-  await db.deleteDocument(config.public.DATABASE_ID, config.public.TASK_COLLECTION_ID, id)
-  fetchTasks()
-}
-
-async function toggleTask(id, completed) {
-  await db.updateDocument(config.public.DATABASE_ID, config.public.TASK_COLLECTION_ID, id, {
-    completed: !completed,
-  })
-  fetchTasks()
-}
 </script>
 
 <template>
@@ -60,30 +20,33 @@ async function toggleTask(id, completed) {
     <span v-if="error" class="error">{{ error }}</span>
 
     <div class="new-task-container">
-      <input v-model="body" type="text" class="new-task" placeholder="Add task" @keyup.enter="addTasks">
-      <button class="new-task" type="submit" :disabled="!body" @click="addTasks">
+      <input v-model="body" type="text" class="new-task" placeholder="Add task" @keyup.enter="tasksStore.addTasks">
+      <button class="new-task" type="submit" :disabled="!body" @click="tasksStore.addTasks">
         <p class="submit">
           submit
         </p>
       </button>
     </div>
 
-    <div class="card">
-      <button type="button" @click="count++">
-        {{ tasks.total || 'loading...' }}
-      </button>
-      <button type="button" @click="fetchTasks">
+    <div>
+      <span class="p2 bg-amber rounded-1">
+        {{ tasksStore.tasksCount || 'loading...' }}
+      </span>
+      <button type="button" @click="tasksStore.fetchTasks">
         fetchTasks
       </button>
     </div>
 
     <div class="task-wrapper">
-      <div v-for="task in tasks.documents" :key="task.$id" class="task">
-        <input type="checkbox" name="task" :checked="task.completed" @click="toggleTask(task.$id, task.completed)">
+      <div v-for="task in tasksStore.tasks" :key="task.$id" class="task">
+        <input
+          type="checkbox" name="task" :checked="task.completed"
+          @click="tasksStore.toggleTask(task.$id, task.completed)"
+        >
         <p :class="task.completed ? 'completed' : ''">
           {{ task.body }}
         </p>
-        <strong :id="`delete-${task.$id}`" class="delete" @click="deleteTask(task.$id)">x</strong>
+        <strong :id="`delete-${task.$id}`" class="delete" @click="tasksStore.deleteTask(task.$id)">x</strong>
       </div>
     </div>
 
