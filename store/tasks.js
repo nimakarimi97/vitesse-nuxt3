@@ -34,20 +34,11 @@ export const useTasksStore = defineStore('tasks', () => {
     }
   }
 
-  async function addTasks() {
-    if (!body.value) {
-      error.value = 'Task cannot be empty'
-
-      setTimeout(() => {
-        error.value = ''
-      }, 5000)
-    }
-
+  async function addTask(body) {
     await db.createDocument(config.public.DATABASE_ID, config.public.TASK_COLLECTION_ID, 'unique()', {
-      body: body.value,
+      body,
     })
 
-    body.value = ''
     fetchTasks()
   }
 
@@ -71,7 +62,7 @@ export const useTasksStore = defineStore('tasks', () => {
     loading,
     error,
     fetchTasks,
-    addTasks,
+    addTask,
     deleteTask,
     toggleTask,
 

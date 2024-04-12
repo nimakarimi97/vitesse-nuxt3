@@ -13,6 +13,19 @@ const error = ref('')
 onMounted(async () => {
   await tasksStore.fetchTasks()
 })
+
+async function addTask() {
+  if (!body.value) {
+    error.value = 'Task cannot be empty'
+
+    setTimeout(() => {
+      error.value = ''
+    }, 5000)
+  }
+
+  await tasksStore.addTask(body.value)
+  body.value = ''
+}
 </script>
 
 <template>
@@ -20,8 +33,8 @@ onMounted(async () => {
     <span v-if="error" class="error">{{ error }}</span>
 
     <div class="new-task-container">
-      <input v-model="body" type="text" class="new-task" placeholder="Add task" @keyup.enter="tasksStore.addTasks">
-      <button class="new-task" type="submit" :disabled="!body" @click="tasksStore.addTasks">
+      <input v-model="body" type="text" class="new-task" placeholder="Add task" @keyup.enter="addTask">
+      <button class="new-task" type="submit" :disabled="!body" @click="addTask">
         <p class="submit">
           submit
         </p>
