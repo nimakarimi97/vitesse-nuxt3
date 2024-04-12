@@ -7,12 +7,13 @@ export default defineNuxtConfig({
     // The private keys which are only available within server-side
     apiSecret: '123', // can be overridden by NUXT_API_SECRET environment variable
     EMAIL: process.env.EMAIL,
-    // Keys within public, will be also exposed to the client-side
-    DATABASE_ID: process.env.DATABASE_ID as string,
-    TASK_COLLECTION_ID: process.env.TASK_COLLECTION_ID as string,
 
+    // Keys within public, will be also exposed to the client-side
     public: {
       apiBase: 'http://nimakarimi.com', // can be overridden by NUXT_PUBLIC_API_BASE environment variable
+      APPWRITE_PROJECT_ID: process.env.APPWRITE_PROJECT_ID as string,
+      DATABASE_ID: process.env.DATABASE_ID as string,
+      TASK_COLLECTION_ID: process.env.TASK_COLLECTION_ID as string,
     },
   },
   modules: [
