@@ -1,13 +1,9 @@
 import { defineStore } from 'pinia'
-import { Client, Databases } from 'appwrite'
+import { Databases } from 'appwrite'
 
 export const useTasksStore = defineStore('tasks', () => {
-  const client = new Client()
   const config = useRuntimeConfig()
-
-  client
-    .setEndpoint(config.public.APPWRITE_ENDPOINT)
-    .setProject(config.public.APPWRITE_PROJECT_ID)
+  const { client } = useAppwrite()
 
   const db = new Databases(client)
 
