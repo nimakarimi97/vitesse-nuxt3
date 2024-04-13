@@ -5,23 +5,16 @@ const email = ref('me@example.com')
 const password = ref('testPassword')
 const name = ref('John Doe')
 
+// onMounted(() => {
+//   if (currentUser.value)
+//     doLogin(email.value, password.value)
+// })
+
 async function doLogin(email, password) {
   const loginResp = await login(email, password)
 
   if (loginResp?.error)
     throw loginResp.error
-}
-
-async function register() {
-  if (loginResp?.error)
-    throw loginResp.error
-
-  const res = await signup(email.value, password.value, name.value)
-
-  if (res?.error)
-    throw res.error
-
-  doLogin(email.value, password.value)
 }
 </script>
 
@@ -38,7 +31,7 @@ async function register() {
       <button type="button" @click="doLogin(email, password)">
         Login
       </button>
-      <button type="button" @click="register">
+      <button type="button" @click="navigateTo('/signup')">
         Register
       </button>
       <button type="button" @click="logout">
