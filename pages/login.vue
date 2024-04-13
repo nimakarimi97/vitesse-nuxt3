@@ -1,17 +1,19 @@
 <script setup>
-const { login, logout, currentUser } = useAppwriteAccount()
+import { useUserStore } from '~/store/user'
+
+const userStore = useUserStore()
 
 const email = ref('me@example.com')
 const password = ref('testPassword')
 
 onMounted(() => {
-  if (currentUser.value)
-    console.log('🚀 ~ //onMounted ~ currentUser.value:', currentUser.value)
+  if (userStore.currentUser)
+    console.log('🚀 ~ //onMounted ~ currentUser.value:', userStore.currentUser)
     // doLogin(email.value, password.value)
 })
 
 async function doLogin(email, password) {
-  const loginResp = await login(email, password)
+  const loginResp = await userStore.login(email, password)
 
   if (loginResp?.error)
     throw loginResp.error
@@ -21,18 +23,19 @@ async function doLogin(email, password) {
 <template>
   <div>
     <p py-4>
-      {{ currentUser ? `Logged in as ${currentUser.name}` : 'Not logged in' }}
+      {{ userStore.currentUser ? `Logged in as ${userStore.currentUser.name}` : 'Not logged in' }}
     </p>
 
     <form flex-center-col mb8>
       <input v-model="email" type="email" placeholder="Email">
       <input v-model="password" type="password" placeholder="Password">
 
-      <button v-if="!currentUser" btn type="button" @click="doLogin(email, password)">
+      <button v-if="!userStore.currentUser" btn type="button" @click="doLogin(email, password)">
         Login
       </button>
 
-      <button v-else btn bg-red type="button" @click="logout">
+      <button v-else btn flex-center gap1 bg-red-8 hover:bg-red-9 type="button" @click="userStore.logout">
+        <div i-carbon:logout />
         Logout
       </button>
     </form>

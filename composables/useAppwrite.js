@@ -1,4 +1,4 @@
-import { Account, Client, Databases } from 'appwrite'
+import { Account, Client } from 'appwrite'
 
 const accountRef = ref()
 
@@ -15,6 +15,6 @@ export function useAppwrite() {
 
   return {
     account: accountRef.value,
-
+    client,
   }
 }

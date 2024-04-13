@@ -1,19 +1,22 @@
 <script setup>
+import { useUserStore } from '~/store/user'
+
 const email = ref('me@example.com')
 const password = ref('testPassword')
 const name = ref('John Doe')
 const error = ref('')
-const { signup, login } = useAppwriteAccount()
+
+const userStore = useUserStore()
 
 async function submit() {
-  const res = await signup(email.value, password.value, name.value)
+  const res = await userStore.signup(email.value, password.value, name.value)
 
   if (res?.error) {
     error.value = res.error
     throw res.error
   }
 
-  await login(email.value, password.value)
+  await userStore.login(email.value, password.value)
   navigateTo('/')
 }
 </script>
@@ -37,9 +40,11 @@ async function submit() {
       </button>
     </form>
 
-    <form action="/api/oauth" method="post" btn my12>
+    <form action="/api/oauth" method="post" btn my12 bg-white text-black>
       <input type="hidden" name="provider" value="github">
-      <button type="button">
+
+      <button type="button" flex-center>
+        <div i-carbon:logo-github />
         Sign up with GitHub
       </button>
     </form>

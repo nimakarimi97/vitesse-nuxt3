@@ -1,7 +1,9 @@
 <script setup>
-const online = useOnline()
+import { useUserStore } from '~/store/user'
 
-const currentUser = ref(null)
+const online = useOnline()
+const userStore = useUserStore()
+console.log('🚀 ~ userStore:', userStore.currentUser)
 </script>
 
 <template>
@@ -24,8 +26,11 @@ const currentUser = ref(null)
 
     <InputEntry />
 
-    <div v-if="currentUser">
-      Logged in as {{ currentUser.name }}
+    <div v-if="userStore.currentUser">
+      Logged in as {{ userStore.currentUser.name
+        || userStore.currentUser.email
+        || userStore.currentUser.providerUid
+      }}
     </div>
   </div>
 </template>
