@@ -1,5 +1,7 @@
-<script setup lang="ts">
+<script setup>
 const online = useOnline()
+
+const currentUser = ref(null)
 </script>
 
 <template>
@@ -12,12 +14,18 @@ const online = useOnline()
           You're offline
         </div>
       </ClientOnly>
+
       <template #fallback>
         <div italic op50>
           <span animate-pulse>Loading...</span>
         </div>
       </template>
     </Suspense>
+
     <InputEntry />
+
+    <div v-if="currentUser">
+      Logged in as {{ currentUser.name }}
+    </div>
   </div>
 </template>

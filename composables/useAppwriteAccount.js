@@ -2,9 +2,10 @@ export function useAppwriteAccount() {
   const { account } = useAppwrite()
   const currentUser = ref(null)
 
-  account.getSession('current').then((user) => {
-    currentUser.value = user
-  })
+  // account?.getSession('current').then((user) => {
+  //   if (user)
+  //     currentUser.value = user
+  // })
 
   async function signup(email, password, name) {
     try {
@@ -25,8 +26,7 @@ export function useAppwriteAccount() {
     try {
       const res = await account.createEmailSession(email, password)
       currentUser.value = await account.get()
-
-      // navigateTo('/tasks')
+      console.log('🚀 ~ login ~ currentUser.value:', currentUser.value)
 
       return { error: undefined, data: res }
     }
@@ -47,6 +47,7 @@ export function useAppwriteAccount() {
       return { error: err.message, data: undefined }
     }
   }
+
   return {
     currentUser,
     signup,

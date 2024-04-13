@@ -13,6 +13,9 @@
     "lint": "eslint .",
     "typecheck": "vue-tsc --noEmit"
   },
+  "dependencies": {
+    "appwrite": "13.0.2"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^2.13.3",
     "@iconify-json/carbon": "^1.1.31",
@@ -32,8 +35,5 @@
     "sass": "^1.75.0",
     "typescript": "^5.4.5",
     "vue-tsc": "^2.0.12"
-  },
-  "dependencies": {
-    "appwrite": "13.0.2"
   }
 }
