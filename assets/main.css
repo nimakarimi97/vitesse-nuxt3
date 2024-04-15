@@ -6,13 +6,42 @@
   --btn-bg-color: var(--primary-color); 
   --btn-text-color: #fff;
 
-  --font-size-sm: clamp(0.8rem, 0.17vw + 0.76rem, 0.89rem);
-  --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
-  --font-size-md: clamp(1.1rem, 0.61vw + 1.1rem, 1.58rem);
-  --font-size-lg: clamp(1.3rem, 1vw + 1.31rem, 1.8rem);
-  --font-size-xl: clamp(1rem, 1.56vw + 1rem, 2rem);
-  --font-size-xxl: clamp(1.5rem, 1vw, 2.5rem);
-  --font-size-xxxl: clamp(2.05rem, 3.54vw + 2.17rem, 3rem);
+  $font-size-base: clamp(0.8rem, 0.265vw + 0.721rem, 0.89rem);
+  $font-size-xsm: clamp(0.563rem, 0.368vw + 0.452rem, 0.688rem);
+  $font-size-sm: clamp(0.688rem, 0.551vw + 0.522rem, 0.875rem);
+  $font-size-md: clamp(0.8rem, 0.657rem + 0.478vw, 0.963rem);
+  $font-size-lg: clamp(0.938rem, 0.46vw + 0.8rem, 1.094rem);
+  $font-size-xl: clamp(1.375rem, 0.735vw + 1.154rem, 1.625rem);
+  $font-size-xxl: clamp(1.8rem, 1.478rem + 2.574vw, 2.4rem);
+}
+
+h1 {
+	font-size: $font-size-xxl;
+}
+
+h2 {
+	font-size: $font-size-xl;
+}
+
+h3 {
+	font-size: $font-size-lg;
+}
+
+h4 {
+	font-size: $font-size-md;
+}
+
+h5 {
+	font-size: $font-size-sm;
+	font-weight: 500;
+}
+
+h6 {
+	font-size: $font-size-xsm;
+}
+
+p {
+	font-size: $font-size-base;
 }
 
 html,
@@ -30,32 +59,14 @@ html.dark {
   color-scheme: dark;
 }
 
-h1 {
-  font-size: var(--font-size-xxxl) ;
+:has(> .center) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.center {
+		margin: 0 auto;
+	}
 }
-
-h2 {
-  font-size: var(--font-size-xxl);
-  font-weight: bold;
-}
-
-h3 {
-  font-size: var(--font-size-xl);
-  font-weight: bold;
-}
-
-h4 {
-  font-size: var(--font-size-lg);
-}
-
-h5 {
-  font-size: var(--font-size-md);
-}
-
-p {
-  font-size: var(--font-size-base);
-}
-
-
 
 
