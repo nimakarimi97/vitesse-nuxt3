@@ -8,11 +8,11 @@ export const useUserStore = defineStore('user', () => {
 
   async function init() {
     try {
-      const session = await account.getSession('current')
-      console.log('🚀 ~ init ~ session:', session)
+      // const session = await account.get()
+      const user = await account.get()
 
-      if (session)
-        currentUser.value = session.user
+      if (user)
+        currentUser.value = user
     }
     catch (err) {
       error.value = `Failed to fetch current session: ${err.message}`

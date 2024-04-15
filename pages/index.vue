@@ -3,7 +3,6 @@ import { useUserStore } from '~/store/user'
 
 const online = useOnline()
 const userStore = useUserStore()
-console.log('🚀 ~ userStore:', userStore.currentUser)
 </script>
 
 <template>

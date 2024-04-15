@@ -23,27 +23,28 @@ async function doLogin(email, password) {
 <template>
   <div>
     <p py-4>
-      {{ userStore.currentUser ? `Logged in as ${userStore.currentUser.name}` : 'Not logged in' }}
+      {{ userStore.currentUser ? `Logged in as ${userStore.currentUser.name
+        || userStore.currentUser.email}` : 'Not logged in' }}
     </p>
 
-    <form flex-center-col mb8>
-      <input v-model="email" type="email" placeholder="Email">
+    <form v-if="!userStore.currentUser" flex-center-col mb8>
+      <input v-model=" email" type="email" placeholder="Email">
       <input v-model="password" type="password" placeholder="Password">
 
       <button v-if="!userStore.currentUser" btn type="button" @click="doLogin(email, password)">
         Login
       </button>
 
-      <button v-else btn flex-center gap1 bg-red-8 hover:bg-red-9 type="button" @click="userStore.logout">
-        <div i-carbon:logout />
-        Logout
-      </button>
+      <span>
+        Haven't got an account?
+
+        <NuxtLink to="/signup" underline>Sign up</NuxtLink>
+      </span>
     </form>
 
-    <span>
-      Haven't got an account?
-
-      <NuxtLink to="/signup" underline>Sign up</NuxtLink>
-    </span>
+    <button v-else mx-auto btn flex-center gap1 bg-red-8 hover:bg-red-9 type="button" @click="userStore.logout">
+      <div i-carbon:logout />
+      Logout
+    </button>
   </div>
 </template>
