@@ -1,5 +1,6 @@
-<script setup lang="ts">
+<script setup>
 const color = useColorMode()
+const { account } = useAppwrite()
 
 useHead({
   meta: [{
@@ -11,7 +12,19 @@ useHead({
 
 function toggleDark() {
   color.preference = color.value === 'dark' ? 'light' : 'dark'
+
+  account.updatePrefs({ theme: color.preference })
 }
+
+// onMounted(async () => {
+//   const promise = account.getPrefs()
+
+//   promise.then((res) => {
+//     color.preference = res?.theme
+//   }, (error) => {
+//     console.error(error)
+//   })
+// })
 </script>
 
 <template>
