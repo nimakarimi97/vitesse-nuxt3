@@ -71,6 +71,15 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  async function loginWithGitHub() {
+    try {
+      await account.createOAuth2Session('github', 'http://localhost:3000', 'http://localhost:3000/login')
+    }
+    catch (err) {
+      console.error('Error signing in with GitHub:', err)
+    }
+  }
+
   return {
     currentUser,
     init,
@@ -78,5 +87,6 @@ export const useUserStore = defineStore('user', () => {
     login,
     logout,
     loginWithGoogle,
+    loginWithGitHub,
   }
 })

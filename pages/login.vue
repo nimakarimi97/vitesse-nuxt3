@@ -21,7 +21,7 @@ async function doLogin(email, password) {
         || userStore.currentUser.email}` : 'Not logged in' }}
     </p>
 
-    <form v-if="!userStore.currentUser" flex-center-col mb8>
+    <div v-if="!userStore.currentUser" flex-center-col mb8>
       <input v-model=" email" type="email" placeholder="Email">
       <input v-model="password" type="password" placeholder="Password">
 
@@ -34,7 +34,19 @@ async function doLogin(email, password) {
 
         <NuxtLink to="/signup" underline>Sign up</NuxtLink>
       </span>
-    </form>
+
+      <div flex-center-col>
+        <button type="button" flex-center btn bg-white text-black @click="userStore.loginWithGoogle">
+          <div i-carbon:logo-google />
+          Sign in with Google
+        </button>
+
+        <button type="button" flex-center btn bg-white text-black @click="userStore.loginWithGitHub">
+          <div i-carbon:logo-github />
+          Sign in with GitHub
+        </button>
+      </div>
+    </div>
 
     <button v-else mx-auto btn flex-center gap1 bg-red-8 hover:bg-red-9 type="button" @click="userStore.logout">
       <div i-carbon:logout />
