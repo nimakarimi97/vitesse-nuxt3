@@ -7,17 +7,10 @@ export const useUserStore = defineStore('user', () => {
   const error = ref(null)
 
   async function init() {
-    try {
-      // const session = await account.get()
-      const user = await account.get()
+    const user = await account.get()
 
-      if (user)
-        currentUser.value = user
-    }
-    catch (err) {
-      error.value = `Failed to fetch current session: ${err.message}`
-      throw err
-    }
+    if (user)
+      currentUser.value = user
   }
 
   init()
@@ -42,7 +35,7 @@ export const useUserStore = defineStore('user', () => {
     try {
       const res = await account.createEmailSession(email, password)
       currentUser.value = await account.get()
-      console.log('🚀 ~ login ~ currentUser.value:', currentUser.value)
+
       return res
     }
     catch (err) {
