@@ -1,4 +1,4 @@
-import { Account, Client } from 'appwrite'
+import { Account, Client, Databases } from 'appwrite'
 
 const accountRef = ref()
 
@@ -12,9 +12,11 @@ export function useAppwrite() {
     .setProject(config.public.APPWRITE_PROJECT_ID)
 
   accountRef.value = new Account(client)
+  const databases = new Databases(client)
 
   return {
     account: accountRef.value,
     client,
+    databases,
   }
 }

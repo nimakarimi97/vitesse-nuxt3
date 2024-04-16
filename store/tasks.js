@@ -1,11 +1,9 @@
 import { defineStore } from 'pinia'
-import { Databases } from 'appwrite'
+import { Query } from 'appwrite'
 
 export const useTasksStore = defineStore('tasks', () => {
   const config = useRuntimeConfig()
-  const { client } = useAppwrite()
-
-  const db = new Databases(client)
+  const { client, databases } = useAppwrite()
 
   const tasks = ref([])
   const tasksCount = ref(0)
@@ -17,7 +15,7 @@ export const useTasksStore = defineStore('tasks', () => {
     error.value = null
 
     try {
-      const response = await db.listDocuments(config.public.DATABASE_ID, config.public.TASK_COLLECTION_ID)
+      const response = await databases.listDocuments(config.public.DATABASE_ID, config.public.TASK_COLLECTION_ID, [Query.orderDesc('$createdAt'), Query.limit(10)])
 
       tasks.value = response.documents
       tasksCount.value = response.total
@@ -31,7 +29,7 @@ export const useTasksStore = defineStore('tasks', () => {
   }
 
   async function addTask(body) {
-    await db.createDocument(config.public.DATABASE_ID, config.public.TASK_COLLECTION_ID, 'unique()', {
+    await databases.createDocument(config.public.DATABASE_ID, config.public.TASK_COLLECTION_ID, 'unique()', {
       body,
     })
 
@@ -39,12 +37,12 @@ export const useTasksStore = defineStore('tasks', () => {
   }
 
   async function deleteTask(id) {
-    await db.deleteDocument(config.public.DATABASE_ID, config.public.TASK_COLLECTION_ID, id)
+    await databases.deleteDocument(config.public.DATABASE_ID, config.public.TASK_COLLECTION_ID, id)
     fetchTasks()
   }
 
   async function toggleTask(id, completed) {
-    await db.updateDocument(config.public.DATABASE_ID, config.public.TASK_COLLECTION_ID, id, {
+    await databases.updateDocument(config.public.DATABASE_ID, config.public.TASK_COLLECTION_ID, id, {
       completed: !completed,
     })
     fetchTasks()
@@ -52,7 +50,7 @@ export const useTasksStore = defineStore('tasks', () => {
 
   return {
     client,
-    db,
+    db: databases,
     tasks,
     tasksCount,
     loading,
