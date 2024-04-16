@@ -6,12 +6,6 @@ const userStore = useUserStore()
 const email = ref('me@example.com')
 const password = ref('testPassword')
 
-onMounted(() => {
-  if (userStore.currentUser)
-    console.log('🚀 ~ //onMounted ~ currentUser.value:', userStore.currentUser)
-    // doLogin(email.value, password.value)
-})
-
 async function doLogin(email, password) {
   const loginResp = await userStore.login(email, password)
 

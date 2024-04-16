@@ -40,6 +40,11 @@ async function submit() {
       </button>
     </form>
 
+    <button type="button" flex-center border-2 border-red @click="userStore.loginWithGoogle">
+      <div i-carbon:logo-google />
+      Sign up with Google
+    </button>
+
     <form action="/api/oauth" method="post" btn my12 bg-white text-black>
       <input type="hidden" name="provider" value="github">
 

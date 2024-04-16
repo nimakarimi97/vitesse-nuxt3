@@ -64,17 +64,16 @@ export const useUserStore = defineStore('user', () => {
 
   async function loginWithGoogle() {
     try {
-      const res = await account.createOAuth2Session('google')
-      currentUser.value = await account.get()
-      return { error: undefined, data: res }
+      await account.createOAuth2Session('google', 'http://localhost:3000', 'http://localhost:3000/login')
     }
     catch (err) {
-      return { error: err.message, data: undefined }
+      console.error('Error signing in with Google:', err)
     }
   }
 
   return {
     currentUser,
+    init,
     signup,
     login,
     logout,
