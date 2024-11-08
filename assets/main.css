@@ -1,9 +1,8 @@
-
 :root {
   --dark-bg-color: rgb(23, 23, 23); /* dark:bg-neutral-900 */
-  --primary-color: #d97706; 
+  --primary-color: #d97706;
   --secondary-color: #4f4f4f;
-  --btn-bg-color: var(--primary-color); 
+  --btn-bg-color: var(--primary-color);
   --btn-text-color: #fff;
 
   $font-size-base: clamp(0.8rem, 0.265vw + 0.721rem, 0.89rem);

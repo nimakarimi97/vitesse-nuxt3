@@ -33,7 +33,7 @@ export const useUserStore = defineStore('user', () => {
 
   async function login(email, password) {
     try {
-      const res = await account.createEmailSession(email, password)
+      const res = await account.createEmailPasswordSession(email, password)
       currentUser.value = await account.get()
 
       return res
