@@ -10,6 +10,10 @@ useHead({
   }],
 })
 
+onMounted(() => {
+  account.getPrefs().then(res => color.preference = res?.theme)
+})
+
 function toggleDark() {
   color.preference = color.value === 'dark' ? 'light' : 'dark'
 
